@@ -9,7 +9,6 @@ import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
@@ -49,6 +48,8 @@ public class SwerveSubsystem extends SubsystemBase {
           throw new RuntimeException(e);
         }
         swerveDrive.setHeadingCorrection(true);
+      //  swerveDrive.angularVelocityCorrection =  Tracao.usarCorrecaoDesvioVelocidadeAngular;
+      //  swerveDrive.angularVelocityCoefficient = Tracao.coeficienteCoreçãoAngVel;
         setupPathPlanner();
     }
     
@@ -120,6 +121,8 @@ public class SwerveSubsystem extends SubsystemBase {
       e.printStackTrace();
     }
   }
+
+  
 
   //Movimenta o robô com o joystick esquerdo, e mira o robo no ângulo no qual o joystick está apontando
   public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier headingX,
