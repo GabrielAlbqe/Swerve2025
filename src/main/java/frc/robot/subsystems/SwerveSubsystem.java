@@ -140,7 +140,20 @@ public class SwerveSubsystem extends SubsystemBase {
     });
   }
 
-  //Movimenta o robô com o joystick esquerdo, e gira o robô na intensidade na qual o joystick direito está para o lado
+  public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier angularRotationX)
+  {
+    return run(() -> {
+      double xInput = Math.pow(translationX.getAsDouble(), 3); 
+      double yInput = Math.pow(translationY.getAsDouble(), 3); 
+      // Faz o robô se mover
+      swerveDrive.driveFieldOriented(new ChassisSpeeds(xInput*swerveDrive.getMaximumChassisVelocity(),
+                                                        yInput*swerveDrive.getMaximumChassisVelocity(), 
+                                                        angularRotationX.getAsDouble()*swerveDrive.getMaximumChassisAngularVelocity()));
+    });
+
+  }
+
+  /*Movimenta o robô com o joystick esquerdo, e gira o robô na intensidade na qual o joystick direito está para o lado
   public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier angularRotationX)
   {
     return run(() -> {
@@ -154,7 +167,7 @@ public class SwerveSubsystem extends SubsystemBase {
                         false);
     });
   }
-
+  */
     public void driveFieldOriented(ChassisSpeeds velocity)
   {
     swerveDrive.driveFieldOriented(velocity);
